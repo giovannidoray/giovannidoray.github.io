@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giovanni Doray — Writer, Filmmaker & Producer</title>
+  <meta name="description" content="Giovanni Doray is a Vancouver-based writer, filmmaker, and producer. Director of Ledges (2025) and Once, In Palm Springs."/>
+  <meta property="og:title" content="Giovanni Doray — Writer, Filmmaker & Producer"/>
+  <meta property="og:description" content="Vancouver-based writer, filmmaker and producer. Director of Ledges and Once, In Palm Springs."/>
+  <meta property="og:image" content="gd-assets/portrait.jpg"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ─────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      --bg:      #0c0b09;
+      --bg2:     #111009;
+      --bg3:     #181611;
+      --warm:    #f0ebe0;
+      --warm2:   #d4cdc0;
+      --muted:   #7a7468;
+      --line:    rgba(255,255,255,.07);
+      --gold:    #c8903a;
+      --gold2:   #e8b060;
+      --teal:    #4a9b8e;   /* from Ledges poster sky */
+      --rust:    #b85a38;   /* from Ledges title */
+
+      --serif:  'EB Garamond', Georgia, serif;
+      --sans:   'Syne', sans-serif;
+      --mono:   'DM Mono', monospace;
+
+      --ease:   cubic-bezier(0.16,1,0.3,1);
+      --pad:    clamp(20px,5vw,80px);
+      --sec:    clamp(80px,11vw,140px);
+      --nav:    70px;
+    }
+
+    /* ─────────────────────────────────────────
+       BASE
+    ───────────────────────────────────────── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{
+      background:var(--bg);
+      color:var(--warm);
+      font-family:var(--sans);
+      font-size:16px;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      cursor:none;
+    }
+    img{display:block;max-width:100%;height:100%;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+    ul{list-style:none}
+    button{font-family:inherit;cursor:none}
+
+    /* ─────────────────────────────────────────
+       CURSOR
+    ───────────────────────────────────────── */
+    #cdot{
+      position:fixed;inset:0 auto auto 0;z-index:9999;
+      width:7px;height:7px;border-radius:50%;
+      background:var(--gold);pointer-events:none;
+      transform:translate(-50%,-50%);
+      transition:width .2s var(--ease),height .2s var(--ease),background .2s;
+    }
+    #cring{
+      position:fixed;inset:0 auto auto 0;z-index:9998;
+      width:34px;height:34px;border-radius:50%;
+      border:1px solid rgba(200,144,58,.5);pointer-events:none;
+      transform:translate(-50%,-50%);
+      transition:width .38s var(--ease),height .38s var(--ease),border-color .3s,opacity .3s;
+      opacity:.7;
+    }
+    body.hov #cdot{width:3px;height:3px;background:var(--warm)}
+    body.hov #cring{width:50px;height:50px;border-color:var(--warm);opacity:1}
+
+    /* ─────────────────────────────────────────
+       GRAIN
+    ───────────────────────────────────────── */
+    body::after{
+      content:'';position:fixed;inset:0;z-index:9990;
+      pointer-events:none;opacity:.032;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:200px;
+    }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    .nav{
+      position:fixed;inset:0 0 auto;z-index:800;
+      height:var(--nav);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 var(--pad);
+      transition:background .5s var(--ease),backdrop-filter .5s;
+    }
+    .nav.on{
+      background:rgba(12,11,9,.85);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-logo{
+      font-family:var(--serif);
+      font-size:1.1rem;font-weight:400;
+      letter-spacing:.02em;color:var(--warm);
+      display:flex;align-items:center;gap:6px;
+    }
+    .nav-logo span{color:var(--gold)}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .nav-links a{
+      font-family:var(--mono);
+      font-size:.62rem;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--muted);
+      position:relative;transition:color .25s;
+    }
+    .nav-links a::after{
+      content:'';position:absolute;bottom:-3px;left:0;
+      width:0;height:1px;background:var(--gold);
+      transition:width .35s var(--ease);
+    }
+    .nav-links a:hover{color:var(--warm)}
+    .nav-links a:hover::after{width:100%}
+    .nav-imdb{
+      padding:8px 18px !important;
+      border:1px solid var(--gold) !important;
+      color:var(--gold) !important;border-radius:2px;
+      transition:background .3s,color .3s !important;
+    }
+    .nav-imdb::after{display:none !important}
+    .nav-imdb:hover{background:var(--gold);color:var(--bg) !important}
+
+    /* burger */
+    .burger{
+      display:none;flex-direction:column;gap:5px;
+      cursor:none;z-index:810;
+    }
+    .burger span{
+      display:block;width:22px;height:1px;
+      background:var(--warm);
+      transition:transform .4s var(--ease),opacity .3s;
+    }
+    .burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+    /* mobile menu */
+    .mmenu{
+      position:fixed;inset:0;z-index:790;
+      background:var(--bg);
+      display:flex;flex-direction:column;
+      justify-content:center;align-items:center;gap:28px;
+      opacity:0;pointer-events:none;
+      transition:opacity .45s var(--ease);
+    }
+    .mmenu.open{opacity:1;pointer-events:all}
+    .mmenu a{
+      font-family:var(--serif);font-style:italic;
+      font-size:clamp(2rem,6vw,3rem);
+      color:rgba(240,235,224,.5);
+      transform:translateY(18px);opacity:0;
+      transition:color .3s,transform .5s var(--ease),opacity .5s var(--ease);
+    }
+    .mmenu.open a{opacity:1;transform:none}
+    .mmenu.open a:nth-child(1){transition-delay:.07s}
+    .mmenu.open a:nth-child(2){transition-delay:.14s}
+    .mmenu.open a:nth-child(3){transition-delay:.21s}
+    .mmenu.open a:nth-child(4){transition-delay:.28s}
+    .mmenu.open a:nth-child(5){transition-delay:.35s}
+    .mmenu a:hover{color:var(--gold)}
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero{
+      min-height:100svh;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      position:relative;overflow:hidden;
+    }
+
+    /* left — text */
+    .hero-left{
+      display:flex;flex-direction:column;
+      justify-content:flex-end;
+      padding:var(--nav) var(--pad) clamp(56px,8vw,100px);
+      position:relative;z-index:3;
+    }
+    .hero-eyebrow{
+      font-family:var(--mono);
+      font-size:.6rem;letter-spacing:.22em;
+      text-transform:uppercase;color:var(--gold);
+      margin-bottom:24px;
+      opacity:0;transform:translateY(14px);
+      animation:up .8s .15s var(--ease) forwards;
+    }
+    .hero-name{
+      font-family:var(--serif);
+      font-size:clamp(4rem,9vw,10rem);
+      font-weight:400;line-height:.88;
+      letter-spacing:-.02em;
+      opacity:0;transform:translateY(28px);
+      animation:up 1s .32s var(--ease) forwards;
+    }
+    .hero-name em{
+      display:block;font-style:italic;
+      color:var(--gold);
+    }
+    .hero-desc{
+      margin-top:28px;
+      font-family:var(--serif);
+      font-size:clamp(1rem,1.3vw,1.2rem);
+      font-weight:400;color:var(--warm2);
+      max-width:400px;line-height:1.75;
+      opacity:0;transform:translateY(14px);
+      animation:up .9s .55s var(--ease) forwards;
+    }
+    .hero-actions{
+      margin-top:40px;
+      display:flex;gap:14px;flex-wrap:wrap;
+      opacity:0;transform:translateY(14px);
+      animation:up .9s .75s var(--ease) forwards;
+    }
+
+    /* right — image */
+    .hero-right{
+      position:relative;overflow:hidden;
+    }
+    .hero-img{
+      position:absolute;inset:0;
+      background:#1a1714;
+    }
+    .hero-img img{
+      width:100%;height:100%;
+      object-fit:cover;object-position:center top;
+      filter:grayscale(15%) contrast(1.05);
+      animation:zoomIn 1.4s .1s var(--ease) both;
+    }
+    /* dark gradient blending left edge into page */
+    .hero-img::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to right,var(--bg) 0%,transparent 30%),
+                 linear-gradient(to top,var(--bg) 0%,transparent 25%);
+    }
+    /* credit tag */
+    .hero-credit{
+      position:absolute;bottom:28px;left:28px;z-index:4;
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(240,235,224,.3);
+      opacity:0;animation:fadeIn 1s 1.6s ease forwards;
+    }
+
+    /* scroll indicator */
+    .hero-scroll{
+      position:absolute;bottom:40px;left:50%;
+      transform:translateX(-50%);z-index:5;
+      display:flex;flex-direction:column;align-items:center;gap:8px;
+      opacity:0;animation:fadeIn 1s 2s ease forwards;
+    }
+    .hero-scroll-line{
+      width:1px;height:56px;
+      background:linear-gradient(to bottom,var(--gold),transparent);
+      animation:pulse 2.2s ease-in-out infinite;
+    }
+    .hero-scroll-lbl{
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.22em;
+      text-transform:uppercase;color:var(--muted);
+    }
+
+    /* ─────────────────────────────────────────
+       BUTTONS
+    ───────────────────────────────────────── */
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--mono);
+      font-size:.62rem;letter-spacing:.14em;
+      text-transform:uppercase;border-radius:2px;
+      padding:12px 24px;
+      transition:background .3s,color .3s,border-color .3s,gap .3s;
+    }
+    .btn:hover{gap:14px}
+    .btn-gold{background:var(--gold);color:var(--bg);border:1px solid var(--gold)}
+    .btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
+    .btn-ghost{background:transparent;color:var(--warm2);border:1px solid rgba(255,255,255,.15)}
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* ─────────────────────────────────────────
+       TICKER
+    ───────────────────────────────────────── */
+    .ticker{
+      overflow:hidden;padding:14px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:var(--bg2);
+    }
+    .ticker-track{
+      display:flex;
+      animation:marquee 32s linear infinite;
+      white-space:nowrap;
+    }
+    .t-item{
+      display:inline-flex;align-items:center;gap:20px;
+      padding:0 20px;
+      font-family:var(--mono);
+      font-size:.58rem;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--muted);
+    }
+    .t-item .pip{
+      width:3px;height:3px;border-radius:50%;
+      background:var(--gold);flex-shrink:0;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION SHARED
+    ───────────────────────────────────────── */
+    section{padding:var(--sec) var(--pad)}
+    .s-label{
+      font-family:var(--mono);
+      font-size:.58rem;letter-spacing:.22em;
+      text-transform:uppercase;color:var(--gold);
+      display:flex;align-items:center;gap:12px;
+      margin-bottom:16px;
+    }
+    .s-label::before{
+      content:'';display:block;
+      width:22px;height:1px;background:var(--gold);
+    }
+    .s-title{
+      font-family:var(--serif);
+      font-size:clamp(2.2rem,4.5vw,4rem);
+      font-weight:400;line-height:1.05;
+      letter-spacing:-.015em;
+    }
+    .s-title em{font-style:italic;color:var(--gold)}
+
+    /* reveal */
+    .r{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+    .r.on{opacity:1;transform:none}
+    .r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}
+    .r.d3{transition-delay:.32s}.r.d4{transition-delay:.46s}
+
+    /* ─────────────────────────────────────────
+       ABOUT
+    ───────────────────────────────────────── */
+    .about{background:var(--bg2)}
+    .about-inner{
+      display:grid;
+      grid-template-columns:480px 1fr;
+      gap:clamp(40px,7vw,110px);
+      align-items:start;
+    }
+
+    /* Portrait */
+    .portrait-wrap{
+      position:relative;
+    }
+    .portrait-frame{
+      position:relative;
+      aspect-ratio:3/4;overflow:hidden;
+    }
+    /* double border accent */
+    .portrait-frame::before{
+      content:'';position:absolute;
+      top:-14px;left:-14px;
+      width:50%;height:50%;
+      border-top:1px solid var(--gold);
+      border-left:1px solid var(--gold);
+      z-index:2;pointer-events:none;
+    }
+    .portrait-frame::after{
+      content:'';position:absolute;
+      bottom:-14px;right:-14px;
+      width:50%;height:50%;
+      border-bottom:1px solid var(--gold);
+      border-right:1px solid var(--gold);
+      z-index:2;pointer-events:none;
+    }
+    .portrait-frame img{
+      width:100%;height:100%;
+      object-fit:cover;object-position:center top;
+      filter:grayscale(8%) contrast(1.05);
+      transition:transform .7s var(--ease);
+    }
+    .portrait-frame:hover img{transform:scale(1.03)}
+
+    /* floating label */
+    .portrait-label{
+      position:absolute;bottom:-1px;right:-1px;
+      background:var(--bg);
+      border:1px solid var(--line);
+      padding:14px 18px;z-index:3;
+    }
+    .portrait-label-name{
+      font-family:var(--serif);
+      font-size:1rem;font-weight:400;
+      color:var(--warm);line-height:1;
+    }
+    .portrait-label-role{
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--gold);
+      margin-top:5px;
+    }
+
+    /* text */
+    .about-text{}
+    .about-body{
+      margin-top:24px;
+      font-family:var(--serif);
+      font-size:clamp(.95rem,1.1vw,1.1rem);
+      color:var(--warm2);line-height:1.85;
+      font-weight:400;max-width:560px;
+    }
+    .about-body p+p{margin-top:1.3em}
+    .about-pull{
+      margin-top:32px;
+      padding-left:20px;
+      border-left:2px solid var(--gold);
+      font-family:var(--serif);font-style:italic;
+      font-size:clamp(1.15rem,1.7vw,1.45rem);
+      color:var(--warm);line-height:1.5;
+      max-width:460px;
+    }
+    .about-btns{
+      margin-top:36px;
+      display:flex;gap:12px;flex-wrap:wrap;
+    }
+
+    /* ─────────────────────────────────────────
+       FILMS
+    ───────────────────────────────────────── */
+    .films{background:var(--bg)}
+    .films-hdr{
+      display:flex;justify-content:space-between;
+      align-items:flex-end;gap:24px;
+      margin-bottom:52px;
+    }
+
+    /* Film grid — masonry-ish */
+    .films-grid{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      grid-template-rows:auto;
+      gap:3px;
+    }
+
+    /* Ledges — wide hero card */
+    .fc-ledges{
+      grid-column:1/8;
+      grid-row:1/3;
+      min-height:600px;
+    }
+    /* Once In Palm Springs — poster card */
+    .fc-oips{
+      grid-column:8/13;
+      grid-row:1/2;
+      min-height:290px;
+    }
+    /* development cards */
+    .fc-pb{
+      grid-column:8/10;
+      grid-row:2/3;
+      min-height:290px;
+    }
+    .fc-bh{
+      grid-column:10/13;
+      grid-row:2/3;
+      min-height:290px;
+    }
+
+    .film-card{
+      position:relative;overflow:hidden;cursor:none;
+    }
+    .fc-bg{
+      position:absolute;inset:0;
+      transition:transform .7s var(--ease);
+    }
+    .film-card:hover .fc-bg{transform:scale(1.05)}
+    .fc-bg img{
+      width:100%;height:100%;
+      object-fit:cover;object-position:center;
+    }
+
+    /* unique tinted overlays per card */
+    .fc-ledges .fc-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(12,11,9,.95) 0%,rgba(12,11,9,.2) 55%,transparent 100%);
+    }
+    .fc-oips .fc-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(12,11,9,.88) 0%,rgba(12,11,9,.1) 60%,transparent 100%);
+    }
+    .fc-pb .fc-overlay,.fc-bh .fc-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(12,11,9,.9) 0%,rgba(12,11,9,.5) 100%);
+    }
+
+    /* dev badge */
+    .dev-badge{
+      position:absolute;top:18px;right:18px;z-index:3;
+      font-family:var(--mono);
+      font-size:.52rem;letter-spacing:.14em;
+      text-transform:uppercase;
+      padding:5px 10px;
+      border:1px solid rgba(200,144,58,.5);
+      color:var(--gold);
+      background:rgba(12,11,9,.7);
+    }
+
+    .fc-body{
+      position:absolute;bottom:0;left:0;right:0;
+      padding:24px 26px 28px;z-index:2;
+      transform:translateY(4px);
+      transition:transform .4s var(--ease);
+    }
+    .film-card:hover .fc-body{transform:none}
+    .fc-tag{
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--gold2);
+      margin-bottom:7px;
+      display:flex;align-items:center;gap:8px;
+    }
+    .fc-tag::before{
+      content:'';display:block;
+      width:12px;height:1px;background:var(--gold2);
+    }
+    .fc-title{
+      font-family:var(--serif);
+      font-size:clamp(1.5rem,2.5vw,2.2rem);
+      font-weight:400;color:var(--warm);
+      line-height:1.1;
+    }
+    .fc-role{
+      margin-top:7px;
+      font-family:var(--mono);
+      font-size:.58rem;letter-spacing:.1em;
+      color:rgba(240,235,224,.4);
+      text-transform:uppercase;
+    }
+    .fc-arrow{
+      position:absolute;top:22px;right:22px;z-index:3;
+      width:36px;height:36px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.15);
+      display:flex;align-items:center;justify-content:center;
+      font-size:.85rem;color:var(--warm);
+      opacity:0;transform:translateY(6px);
+      transition:opacity .3s,transform .35s var(--ease),background .3s;
+    }
+    .film-card:hover .fc-arrow:not(.hidden){
+      opacity:1;transform:none;
+      background:var(--gold);border-color:var(--gold);color:var(--bg);
+    }
+
+    /* ─────────────────────────────────────────
+       STILLS STRIP
+    ───────────────────────────────────────── */
+    .stills{
+      background:var(--bg3);
+      padding:0;overflow:hidden;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+    .stills-track{
+      display:flex;gap:3px;
+      animation:scrollL 28s linear infinite;
+      width:max-content;
+    }
+    .stills-track:hover{animation-play-state:paused}
+    .still-item{
+      width:clamp(240px,28vw,380px);
+      height:clamp(140px,18vw,220px);
+      flex-shrink:0;overflow:hidden;position:relative;
+    }
+    .still-item img{
+      width:100%;height:100%;
+      object-fit:cover;
+      transition:transform .6s var(--ease);
+      filter:saturate(.85);
+    }
+    .still-item:hover img{transform:scale(1.06);filter:saturate(1)}
+    .still-caption{
+      position:absolute;bottom:0;left:0;right:0;
+      padding:8px 14px;
+      font-family:var(--mono);
+      font-size:.5rem;letter-spacing:.12em;
+      text-transform:uppercase;color:rgba(240,235,224,.4);
+      background:linear-gradient(to top,rgba(12,11,9,.8),transparent);
+      opacity:0;transition:opacity .3s;
+    }
+    .still-item:hover .still-caption{opacity:1}
+
+    /* ─────────────────────────────────────────
+       WRITING
+    ───────────────────────────────────────── */
+    .writing{background:var(--bg2)}
+    .writing-hdr{
+      display:flex;justify-content:space-between;
+      align-items:flex-end;gap:24px;
+      margin-bottom:48px;
+    }
+    .wlist{display:flex;flex-direction:column}
+    .witem{
+      display:grid;
+      grid-template-columns:60px 1fr 28px;
+      align-items:center;gap:24px;
+      padding:24px 0;
+      border-bottom:1px solid var(--line);
+      position:relative;cursor:none;
+      transition:padding-left .35s var(--ease);
+    }
+    .witem:first-child{border-top:1px solid var(--line)}
+    .witem::before{
+      content:'';position:absolute;
+      left:-4px;top:0;bottom:0;
+      width:2px;background:var(--gold);
+      transform:scaleY(0);transform-origin:bottom;
+      transition:transform .38s var(--ease);
+    }
+    .witem:hover::before{transform:scaleY(1)}
+    .witem:hover{padding-left:12px}
+    .wnum{
+      font-family:var(--serif);
+      font-size:1.6rem;font-weight:400;
+      color:rgba(255,255,255,.08);line-height:1;
+    }
+    .winfo{}
+    .wtitle{
+      font-family:var(--serif);
+      font-size:clamp(1rem,1.5vw,1.3rem);
+      font-weight:400;color:var(--warm);line-height:1.2;
+    }
+    .wmeta{
+      font-family:var(--mono);
+      font-size:.58rem;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--muted);
+      margin-top:5px;
+    }
+    .warrow{
+      color:var(--muted);font-size:.95rem;
+      transition:color .3s,transform .3s;
+    }
+    .witem:hover .warrow{color:var(--gold);transform:translateX(5px)}
+
+    /* ─────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────── */
+    .contact{
+      background:var(--bg3);
+      display:grid;
+      grid-template-columns:1fr 1.15fr;
+      gap:clamp(36px,7vw,100px);
+      align-items:start;
+    }
+    .contact-desc{
+      margin-top:20px;
+      font-family:var(--serif);
+      font-size:clamp(.9rem,1.1vw,1.05rem);
+      color:var(--warm2);line-height:1.8;
+      max-width:400px;
+    }
+    .clinks{margin-top:44px;display:flex;flex-direction:column;gap:16px}
+    .clink{
+      display:flex;align-items:center;gap:14px;
+      font-family:var(--mono);
+      font-size:.62rem;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--muted);
+      transition:color .3s,gap .3s;cursor:none;
+    }
+    .clink:hover{color:var(--gold2);gap:20px}
+    .cicon{
+      width:36px;height:36px;border-radius:50%;
+      border:1px solid var(--line);
+      display:flex;align-items:center;justify-content:center;
+      font-size:.9rem;flex-shrink:0;
+      transition:background .3s,border-color .3s;
+    }
+    .clink:hover .cicon{background:var(--gold);border-color:var(--gold)}
+
+    /* form */
+    .fg{margin-bottom:18px}
+    .fl{
+      display:block;
+      font-family:var(--mono);
+      font-size:.56rem;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--muted);
+      margin-bottom:8px;
+    }
+    .fi,.ft,.fsel{
+      width:100%;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--warm);padding:12px 16px;
+      font-family:var(--sans);font-size:.9rem;
+      outline:none;border-radius:2px;
+      transition:border-color .3s,background .3s;
+      -webkit-appearance:none;
+    }
+    .fi::placeholder,.ft::placeholder{color:rgba(122,116,104,.4)}
+    .fi:focus,.ft:focus,.fsel:focus{
+      border-color:var(--gold);
+      background:rgba(200,144,58,.04);
+    }
+    .ft{min-height:120px;resize:vertical;line-height:1.6}
+    .fsel option{background:var(--bg2)}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .fsubmit{
+      width:100%;padding:14px;
+      background:var(--gold);color:var(--bg);
+      border:none;border-radius:2px;
+      font-family:var(--mono);font-size:.62rem;
+      letter-spacing:.14em;text-transform:uppercase;
+      transition:background .3s;
+    }
+    .fsubmit:hover{background:var(--gold2)}
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer{
+      background:#070605;
+      padding:44px var(--pad);
+    }
+    .footer-inner{
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;gap:32px;
+    }
+    .f-logo{
+      font-family:var(--serif);
+      font-size:1rem;color:rgba(240,235,224,.25);
+    }
+    .f-logo span{color:rgba(200,144,58,.45)}
+    .f-mid{
+      font-family:var(--mono);
+      font-size:.56rem;letter-spacing:.14em;
+      text-transform:uppercase;text-align:center;
+      color:rgba(122,116,104,.4);
+    }
+    .f-social{
+      display:flex;justify-content:flex-end;gap:20px;
+    }
+    .f-social a{
+      font-family:var(--mono);
+      font-size:.58rem;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--muted);
+      transition:color .3s;
+    }
+    .f-social a:hover{color:var(--gold)}
+    .f-copy{
+      margin-top:28px;
+      padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.04);
+      font-family:var(--mono);
+      font-size:.54rem;letter-spacing:.1em;
+      text-align:center;text-transform:uppercase;
+      color:rgba(122,116,104,.25);
+    }
+
+    /* ─────────────────────────────────────────
+       KEYFRAMES
+    ───────────────────────────────────────── */
+    @keyframes up{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:none}
+    }
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes zoomIn{from{transform:scale(1.06)}to{transform:scale(1)}}
+    @keyframes pulse{
+      0%,100%{opacity:1;transform:scaleY(1)}
+      50%{opacity:.3;transform:scaleY(.5)}
+    }
+    @keyframes marquee{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+    @keyframes scrollL{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media(max-width:1100px){
+      .about-inner{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr;min-height:100svh}
+      .hero-right{
+        position:absolute;inset:0;z-index:0;opacity:.2;
+      }
+      .hero-left{
+        position:relative;z-index:3;
+        justify-content:flex-end;
+        padding-top:calc(var(--nav) + 32px);
+      }
+      .about-inner{grid-template-columns:1fr}
+      .portrait-wrap{max-width:360px}
+      .portrait-frame::before,.portrait-frame::after{display:none}
+      .films-grid{grid-template-columns:1fr}
+      .fc-ledges,.fc-oips,.fc-pb,.fc-bh{
+        grid-column:1/-1;grid-row:auto;
+        min-height:300px;
+      }
+      .contact{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr;text-align:center}
+      .f-social{justify-content:center}
+      .nav-links{display:none}
+      .burger{display:flex}
+      body{cursor:auto}
+      #cdot,#cring{display:none}
+      .films-hdr,.writing-hdr{flex-direction:column;align-items:flex-start}
+      .frow{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      .hero-actions{flex-direction:column;align-items:flex-start}
+      .hero-scroll{display:none}
+      .about-btns{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cdot"></div>
+<div id="cring"></div>
+
+<!-- Mobile menu -->
+<div class="mmenu" id="mmenu">
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#films" onclick="closeMob()">Films</a>
+  <a href="#writing" onclick="closeMob()">Writing</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener">IMDb ↗</a>
+</div>
+
+<!-- ── NAV ─────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">Giovanni <span>Doray</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#films">Films</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener" class="nav-imdb">IMDb ↗</a></li>
+  </ul>
+  <div class="burger" id="burger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Vancouver, Canada &nbsp;·&nbsp; Writer · Filmmaker · Producer</p>
+    <h1 class="hero-name">
+      Giovanni<em>Doray</em>
+    </h1>
+    <p class="hero-desc">
+      Stories pulled from the quiet edges of living — written first, then filmed.
+    </p>
+    <div class="hero-actions">
+      <a href="#films" class="btn btn-gold">View Films →</a>
+      <a href="#contact" class="btn btn-ghost">Get In Touch →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img">
+      <img src="gd-assets/portrait.jpg" alt="Giovanni Doray" loading="eager"/>
+    </div>
+    <div class="hero-credit">Portrait — Vancouver, BC</div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-line"></div>
+    <span class="hero-scroll-lbl">Scroll</span>
+  </div>
+</section>
+
+<!-- ── TICKER ──────────────────────────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="t-item"><span class="pip"></span>Writer</span>
+    <span class="t-item"><span class="pip"></span>Filmmaker</span>
+    <span class="t-item"><span class="pip"></span>Director</span>
+    <span class="t-item"><span class="pip"></span>Producer</span>
+    <span class="t-item"><span class="pip"></span>Screenwriter</span>
+    <span class="t-item"><span class="pip"></span>Ledges — 2025</span>
+    <span class="t-item"><span class="pip"></span>Once, In Palm Springs</span>
+    <span class="t-item"><span class="pip"></span>Vancouver · Los Angeles</span>
+    <span class="t-item"><span class="pip"></span>Writer</span>
+    <span class="t-item"><span class="pip"></span>Filmmaker</span>
+    <span class="t-item"><span class="pip"></span>Director</span>
+    <span class="t-item"><span class="pip"></span>Producer</span>
+    <span class="t-item"><span class="pip"></span>Screenwriter</span>
+    <span class="t-item"><span class="pip"></span>Ledges — 2025</span>
+    <span class="t-item"><span class="pip"></span>Once, In Palm Springs</span>
+    <span class="t-item"><span class="pip"></span>Vancouver · Los Angeles</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ───────────────────────────────── -->
+<section class="about" id="about">
+  <div class="about-inner">
+
+    <div class="portrait-wrap r">
+      <div class="portrait-frame">
+        <img src="gd-assets/portrait.jpg" alt="Giovanni Doray — writer and filmmaker"/>
+      </div>
+      <div class="portrait-label">
+        <div class="portrait-label-name">Giovanni Doray</div>
+        <div class="portrait-label-role">Writer · Filmmaker · Producer</div>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <p class="s-label r">About</p>
+      <h2 class="s-title r d1">The work comes<br>from <em>necessity</em></h2>
+      <div class="about-body r d2">
+        <p>
+          Giovanni Doray is a Vancouver-based writer, filmmaker, and producer whose work is driven by the kind of stories that don't wait for permission. He writes scripts, then films them — often in Los Angeles, often independently, always on his own terms.
+        </p>
+        <p>
+          His films — <strong>Ledges</strong> (2025) and <strong>Once, In Palm Springs</strong> — are quiet, human stories told with a sharp visual instinct. Two more projects, <strong>Paper Bride</strong> and <strong>Being Here</strong>, are currently in development.
+        </p>
+        <p>
+          Giovanni is also a writer of essays and fiction, exploring identity, creativity, and the cost of making art from the margins. He believes the best stories are the ones that couldn't have been told any other way.
+        </p>
+      </div>
+      <blockquote class="about-pull r d3">
+        "The stories I tell are the ones I couldn't keep inside any longer."
+      </blockquote>
+      <div class="about-btns r d4">
+        <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener" class="btn btn-gold">IMDb Profile ↗</a>
+        <a href="https://www.instagram.com/giovannidoray/" target="_blank" rel="noopener" class="btn btn-ghost">Instagram ↗</a>
+        <a href="https://medium.com/@giovannidoray" target="_blank" rel="noopener" class="btn btn-ghost">Medium ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FILMS ───────────────────────────────── -->
+<section class="films" id="films">
+  <div class="films-hdr">
+    <div>
+      <p class="s-label r">Filmography</p>
+      <h2 class="s-title r d1">Films &amp; <em>Projects</em></h2>
+    </div>
+    <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener" class="btn btn-ghost r d2">Full Credits on IMDb ↗</a>
+  </div>
+
+  <div class="films-grid">
+
+    <!-- LEDGES -->
+    <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener"
+       class="film-card fc-ledges r">
+      <div class="fc-bg">
+        <img src="gd-assets/ledges-poster.png" alt="Ledges — A short film by Giovanni Doray"/>
+      </div>
+      <div class="fc-overlay"></div>
+      <div class="fc-arrow">↗</div>
+      <div class="fc-body">
+        <p class="fc-tag">Short Film · 2025 · Released</p>
+        <h3 class="fc-title">Ledges</h3>
+        <p class="fc-role">Writer · Director · Producer</p>
+      </div>
+    </a>
+
+    <!-- ONCE IN PALM SPRINGS -->
+    <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener"
+       class="film-card fc-oips r d1">
+      <div class="fc-bg">
+        <img src="gd-assets/oips-poster.jpg" alt="Once, In Palm Springs poster"/>
+      </div>
+      <div class="fc-overlay"></div>
+      <div class="fc-arrow">↗</div>
+      <div class="fc-body">
+        <p class="fc-tag">Short Film · Released</p>
+        <h3 class="fc-title">Once, In Palm Springs</h3>
+        <p class="fc-role">Writer · Director · Producer</p>
+      </div>
+    </a>
+
+    <!-- PAPER BRIDE — dev -->
+    <div class="film-card fc-pb r d2">
+      <div class="fc-bg" style="background:linear-gradient(145deg,#1a1614,#0e0c0a)"></div>
+      <div class="fc-overlay"></div>
+      <div class="dev-badge">In Development</div>
+      <div class="fc-body">
+        <p class="fc-tag">Feature Film</p>
+        <h3 class="fc-title">Paper Bride</h3>
+        <p class="fc-role">Writer · Director · Producer</p>
+      </div>
+    </div>
+
+    <!-- BEING HERE — dev -->
+    <div class="film-card fc-bh r d3">
+      <div class="fc-bg" style="background:linear-gradient(145deg,#141618,#0c0e10)"></div>
+      <div class="fc-overlay"></div>
+      <div class="dev-badge">In Development</div>
+      <div class="fc-body">
+        <p class="fc-tag">Feature Film</p>
+        <h3 class="fc-title">Being Here</h3>
+        <p class="fc-role">Writer · Director · Producer</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── STILLS STRIP ────────────────────────── -->
+<div class="stills" aria-label="Film stills from Ledges and Once, In Palm Springs">
+  <div class="stills-track">
+    <div class="still-item">
+      <img src="gd-assets/ledges-1.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/oips-2.png" alt="Still from Once, In Palm Springs"/>
+      <div class="still-caption">Once, In Palm Springs</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/ledges-3.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/oips-3.png" alt="Still from Once, In Palm Springs"/>
+      <div class="still-caption">Once, In Palm Springs</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/ledges-4.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/oips-1.png" alt="Still from Once, In Palm Springs"/>
+      <div class="still-caption">Once, In Palm Springs</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/ledges-2.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="still-item">
+      <img src="gd-assets/ledges-1.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/oips-2.png" alt="Still from Once, In Palm Springs"/>
+      <div class="still-caption">Once, In Palm Springs</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/ledges-3.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/oips-3.png" alt="Still from Once, In Palm Springs"/>
+      <div class="still-caption">Once, In Palm Springs</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/ledges-4.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/oips-1.png" alt="Still from Once, In Palm Springs"/>
+      <div class="still-caption">Once, In Palm Springs</div>
+    </div>
+    <div class="still-item">
+      <img src="gd-assets/ledges-2.png" alt="Still from Ledges"/>
+      <div class="still-caption">Ledges, 2025</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WRITING ─────────────────────────────── -->
+<section class="writing" id="writing">
+  <div class="writing-hdr">
+    <div>
+      <p class="s-label r">On The Page</p>
+      <h2 class="s-title r d1">Writing &amp; <em>Essays</em></h2>
+    </div>
+    <a href="https://medium.com/@giovannidoray" target="_blank" rel="noopener"
+       class="btn btn-ghost r d2">All Writing on Medium ↗</a>
+  </div>
+
+  <div class="wlist">
+    <a href="https://medium.com/@giovannidoray/art-is-a-bruise-you-keep-pressing-on-9747faebd560"
+       target="_blank" rel="noopener" class="witem r">
+      <div class="wnum">01</div>
+      <div class="winfo">
+        <h3 class="wtitle">Art Is a Bruise You Keep Pressing On</h3>
+        <p class="wmeta">Personal Essay · Medium · February 2025</p>
+      </div>
+      <span class="warrow">→</span>
+    </a>
+
+    <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener"
+       class="witem r d1">
+      <div class="wnum">02</div>
+      <div class="winfo">
+        <h3 class="wtitle">Ledges — Original Screenplay</h3>
+        <p class="wmeta">Short Film Screenplay · 2025</p>
+      </div>
+      <span class="warrow">→</span>
+    </a>
+
+    <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener"
+       class="witem r d2">
+      <div class="wnum">03</div>
+      <div class="winfo">
+        <h3 class="wtitle">Once, In Palm Springs — Novel & Screenplay</h3>
+        <p class="wmeta">Written as novel, adapted to screen · Los Angeles</p>
+      </div>
+      <span class="warrow">→</span>
+    </a>
+
+    <a href="https://medium.com/@giovannidoray" target="_blank" rel="noopener"
+       class="witem r d3">
+      <div class="wnum">04</div>
+      <div class="winfo">
+        <h3 class="wtitle">More Essays & Fiction</h3>
+        <p class="wmeta">Ongoing · Medium · @giovannidoray</p>
+      </div>
+      <span class="warrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── CONTACT ─────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <p class="s-label r">Get In Touch</p>
+    <h2 class="s-title r d1">Let's make<br><em>something</em></h2>
+    <p class="contact-desc r d2">
+      Open to collaboration on feature films, short films, screenwriting, producing partnerships, literary projects, and creative development. Based in Vancouver — working everywhere.
+    </p>
+    <div class="clinks r d3">
+      <a href="mailto:giovannidoray@gmail.com" class="clink">
+        <span class="cicon">✉</span>
+        giovannidoray@gmail.com
+      </a>
+      <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener" class="clink">
+        <span class="cicon">🎬</span>
+        IMDb — nm14467263
+      </a>
+      <a href="https://www.instagram.com/giovannidoray/" target="_blank" rel="noopener" class="clink">
+        <span class="cicon">📷</span>
+        @giovannidoray on Instagram
+      </a>
+      <a href="https://medium.com/@giovannidoray" target="_blank" rel="noopener" class="clink">
+        <span class="cicon">✍</span>
+        @giovannidoray on Medium
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-right r d2">
+    <div class="frow">
+      <div class="fg">
+        <label class="fl">First Name</label>
+        <input type="text" class="fi" placeholder="First name"/>
+      </div>
+      <div class="fg">
+        <label class="fl">Last Name</label>
+        <input type="text" class="fi" placeholder="Last name"/>
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">Email</label>
+      <input type="email" class="fi" placeholder="your@email.com"/>
+    </div>
+    <div class="fg">
+      <label class="fl">Company / Studio</label>
+      <input type="text" class="fi" placeholder="Optional"/>
+    </div>
+    <div class="fg">
+      <label class="fl">Type of Enquiry</label>
+      <select class="fsel">
+        <option value="" disabled selected>Select one</option>
+        <option>Film Collaboration</option>
+        <option>Screenwriting Commission</option>
+        <option>Producing Partnership</option>
+        <option>Literary / Publishing</option>
+        <option>Press &amp; Interview</option>
+        <option>Fan Mail</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label class="fl">Message</label>
+      <textarea class="ft" placeholder="Tell me about your project or enquiry…"></textarea>
+    </div>
+    <button class="fsubmit" id="fsub">Send Message →</button>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="f-logo">Giovanni <span>Doray</span></div>
+    <div class="f-mid">Writer · Filmmaker · Producer · Vancouver, Canada</div>
+    <div class="f-social">
+      <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener">IMDb</a>
+      <a href="https://www.instagram.com/giovannidoray/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://medium.com/@giovannidoray" target="_blank" rel="noopener">Medium</a>
+    </div>
+  </div>
+  <p class="f-copy">© 2025 Giovanni Doray — All rights reserved.</p>
+</footer>
+
+<script>
+/* ── Cursor ── */
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px';
+});
+(function loop(){
+  rx+=(mx-rx)*.11;ry+=(my-ry)*.11;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.film-card,.witem').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+/* ── Nav ── */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>40),{passive:true});
+
+/* ── Reveal ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+
+/* ── Mobile menu ── */
+const burger=document.getElementById('burger'),mmenu=document.getElementById('mmenu');
+burger.addEventListener('click',()=>{
+  burger.classList.toggle('open');
+  mmenu.classList.toggle('open');
+  document.body.style.overflow=mmenu.classList.contains('open')?'hidden':'';
+});
+function closeMob(){
+  burger.classList.remove('open');
+  mmenu.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ── Form ── */
+document.getElementById('fsub').addEventListener('click',function(){
+  this.textContent='Sending…';
+  setTimeout(()=>{this.textContent='Sent ✓ — I\'ll be in touch';},1400);
+});
+
+/* ── Parallax hero portrait ── */
+const heroImg=document.querySelector('.hero-img img');
+window.addEventListener('scroll',()=>{
+  if(heroImg&&window.innerWidth>900){
+    heroImg.style.transform=`scale(1.06) translateY(${scrollY*.08}px)`;
+  }
+},{passive:true});
+</script>
+</body>
+</html>
