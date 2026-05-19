@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ledges (2025) — Giovanni Doray</title>
+  <meta name="description" content="Ledges. A 2025 short film written, directed, and produced by Giovanni Doray. Starring Justin Tyler Kem and Jennifer Michele De Winters."/>
+  <link rel="canonical" href="https://www.giovannidoray.com/ledges.html"/>
+  <meta property="og:title" content="Ledges (2025) — Giovanni Doray"/>
+  <meta property="og:image" content="https://www.giovannidoray.com/gd-assets/ledges-poster.png"/>
+  <meta property="og:type" content="video.movie"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg:    #0c0b09;
+      --bg2:   #111009;
+      --bg3:   #181611;
+      --warm:  #f0ebe0;
+      --warm2: #d4cdc0;
+      --muted: #7a7468;
+      --line:  rgba(255,255,255,.07);
+      --gold:  #c8903a;
+      --gold2: #e8b060;
+      /* Ledges palette — teal/rust pulled from poster */
+      --accent:  #4a9b8e;
+      --accent2: #6abfb2;
+      --rust:    #b85a38;
+
+      --serif: 'EB Garamond', Georgia, serif;
+      --sans:  'Syne', sans-serif;
+      --mono:  'DM Mono', monospace;
+      --ease:  cubic-bezier(0.16,1,0.3,1);
+      --pad:   clamp(20px,5vw,80px);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{background:var(--bg);color:var(--warm);font-family:var(--sans);-webkit-font-smoothing:antialiased;cursor:none}
+    img{display:block;max-width:100%;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+
+    #cdot{position:fixed;inset:0 auto auto 0;z-index:9999;width:7px;height:7px;border-radius:50%;background:var(--accent);pointer-events:none;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+    #cring{position:fixed;inset:0 auto auto 0;z-index:9998;width:34px;height:34px;border-radius:50%;border:1px solid rgba(74,155,142,.5);pointer-events:none;transform:translate(-50%,-50%);transition:width .38s var(--ease),height .38s var(--ease);opacity:.7}
+    body.hov #cdot{width:3px;height:3px;background:var(--warm)}
+    body.hov #cring{width:50px;height:50px;border-color:var(--warm);opacity:1}
+    body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;opacity:.032;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+
+    .nav{position:fixed;inset:0 0 auto;z-index:800;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);background:rgba(12,11,9,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+    .nav-logo{font-family:var(--serif);font-size:1.05rem;color:var(--warm)}
+    .nav-logo span{color:var(--gold)}
+    .nav-back{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;transition:color .3s,gap .3s}
+    .nav-back:hover{color:var(--accent);gap:14px}
+
+    /* HERO */
+    .film-hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+    .fh-left{display:flex;flex-direction:column;justify-content:flex-end;padding:70px var(--pad) clamp(56px,8vw,100px);position:relative;z-index:3}
+    .fh-tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:20px;opacity:0;transform:translateY(14px);animation:up .8s .1s var(--ease) forwards}
+    .fh-tag::before{content:'';display:block;width:22px;height:1px;background:var(--accent)}
+    .fh-title{font-family:var(--serif);font-size:clamp(4rem,10vw,11rem);font-weight:400;line-height:.85;letter-spacing:-.03em;opacity:0;transform:translateY(28px);animation:up 1s .28s var(--ease) forwards}
+    .fh-title em{display:block;font-style:italic;color:var(--accent);font-size:.7em}
+    .fh-credits-row{margin-top:28px;display:flex;gap:32px;flex-wrap:wrap;opacity:0;transform:translateY(14px);animation:up .9s .5s var(--ease) forwards}
+    .fh-credit-label{font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .fh-credit-val{font-family:var(--serif);font-size:.95rem;color:var(--warm2)}
+    .fh-actions{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(14px);animation:up .9s .7s var(--ease) forwards}
+
+    .fh-right{position:relative;overflow:hidden}
+    .fh-poster{position:absolute;inset:0;background:var(--bg3)}
+    .fh-poster img{width:100%;height:100%;object-fit:cover;object-position:center top;animation:zoomIn 1.4s .1s var(--ease) both}
+    .fh-poster::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 30%),linear-gradient(to top,var(--bg) 0%,transparent 20%)}
+
+    .year-badge{position:absolute;top:80px;right:var(--pad);z-index:4;background:rgba(12,11,9,.8);border:1px solid rgba(74,155,142,.4);padding:14px 22px;text-align:center;opacity:0;animation:fadeIn 1s 1.4s ease forwards}
+    .yb-num{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--accent);line-height:1}
+    .yb-label{font-family:var(--mono);font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-top:4px}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;border-radius:2px;padding:12px 22px;cursor:none;transition:background .3s,color .3s,border-color .3s,gap .3s}
+    .btn:hover{gap:14px}
+    .btn-gold{background:var(--accent);color:var(--bg);border:1px solid var(--accent)}
+    .btn-gold:hover{background:var(--accent2);border-color:var(--accent2)}
+    .btn-ghost{background:transparent;color:var(--warm2);border:1px solid rgba(255,255,255,.15)}
+    .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-disabled{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.08);cursor:not-allowed;opacity:.6}
+    .btn-disabled:hover{gap:8px}
+
+    /* SYNOPSIS */
+    .synopsis{background:var(--bg2);padding:clamp(72px,10vw,130px) var(--pad);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,110px);align-items:start}
+    .syn-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .syn-label::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+    .syn-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.05;letter-spacing:-.015em;margin-bottom:28px}
+    .syn-title em{font-style:italic;color:var(--accent)}
+    .syn-body{font-family:var(--serif);font-size:clamp(.95rem,1.1vw,1.1rem);color:var(--warm2);line-height:1.85}
+    .syn-body p+p{margin-top:1.3em}
+    .syn-pull{margin-top:32px;padding-left:20px;border-left:2px solid var(--accent);font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,1.6vw,1.4rem);color:var(--warm);line-height:1.55}
+
+    .credits-block{background:var(--bg3);padding:36px}
+    .credits-title{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+    .credits-title::before{content:'';display:block;width:16px;height:1px;background:var(--accent)}
+    .credit-row{display:grid;grid-template-columns:140px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+    .credit-row:last-child{border-bottom:none}
+    .cr-role{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+    .cr-name{font-family:var(--serif);font-size:1rem;color:var(--warm)}
+    .cr-note{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:3px}
+
+    /* GALLERY */
+    .gallery{background:var(--bg);padding:clamp(72px,10vw,130px) var(--pad)}
+    .gallery-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .gallery-label::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+    .gallery-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.05;letter-spacing:-.015em;margin-bottom:48px}
+    .gallery-title em{font-style:italic;color:var(--accent)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+    .gitem{overflow:hidden;position:relative;cursor:none}
+    .gitem img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease),filter .4s;filter:saturate(.9)}
+    .gitem:hover img{transform:scale(1.04);filter:saturate(1.05)}
+    .gi1{grid-column:1/5;min-height:320px}
+    .gi2{grid-column:5/9;min-height:320px}
+    .gi3{grid-column:9/13;min-height:320px}
+    .gi4{grid-column:1/8;min-height:400px}
+    .gi5{grid-column:8/13;min-height:400px}
+
+    /* FILMMAKER NOTE */
+    .note{background:var(--bg2);padding:clamp(72px,10vw,130px) var(--pad);display:grid;grid-template-columns:1fr 2fr;gap:clamp(40px,7vw,100px);align-items:start}
+    .note-aside-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.1;letter-spacing:-.015em}
+    .note-aside-title em{font-style:italic;color:var(--accent)}
+    .note-body{font-family:var(--serif);font-size:clamp(.95rem,1.1vw,1.1rem);color:var(--warm2);line-height:1.9}
+    .note-body p+p{margin-top:1.4em}
+
+    /* NEXT */
+    .next-film{background:var(--bg3);padding:clamp(72px,10vw,130px) var(--pad);display:flex;justify-content:space-between;align-items:center;gap:40px;border-top:1px solid var(--line);cursor:none;transition:background .4s}
+    .next-film:hover{background:var(--bg2)}
+    .nf-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .nf-title{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3.5rem);font-weight:400;line-height:1;letter-spacing:-.015em}
+    .nf-title em{font-style:italic;color:var(--gold)}
+    .nf-arrow{font-size:clamp(2rem,5vw,4rem);color:var(--muted);transition:color .3s,transform .4s var(--ease);flex-shrink:0}
+    .next-film:hover .nf-arrow{color:var(--gold);transform:translateX(12px)}
+
+    footer{background:#070605;padding:36px var(--pad);display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);flex-wrap:wrap;gap:16px}
+    .f-logo{font-family:var(--serif);font-size:.95rem;color:rgba(240,235,224,.25)}
+    .f-logo span{color:rgba(200,144,58,.45)}
+    .f-copy{font-family:var(--mono);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(122,116,104,.3)}
+
+    .r{opacity:0;transform:translateY(28px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+    .r.on{opacity:1;transform:none}
+    .r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.32s}
+
+    @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes zoomIn{from{transform:scale(1.06)}to{transform:scale(1)}}
+
+    @media(max-width:900px){
+      .film-hero{grid-template-columns:1fr;min-height:100svh}
+      .fh-right{position:absolute;inset:0;z-index:0;opacity:.2}
+      .fh-left{position:relative;z-index:3;justify-content:flex-end;padding-top:calc(70px + 32px)}
+      .synopsis{grid-template-columns:1fr}
+      .note{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr 1fr}
+      .gi1,.gi2,.gi3,.gi4,.gi5{grid-column:span 2;min-height:220px}
+      .next-film{flex-direction:column;align-items:flex-start}
+      body{cursor:auto}
+      #cdot,#cring{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<div id="cdot"></div>
+<div id="cring"></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Giovanni <span>Doray</span></a>
+  <a href="index.html#films" class="nav-back">← Back to Films</a>
+</nav>
+
+<!-- HERO -->
+<section class="film-hero">
+  <div class="fh-left">
+    <p class="fh-tag">Short Film · 2025 · Released</p>
+    <h1 class="fh-title">ledges</h1>
+    <div class="fh-credits-row">
+      <div class="fh-credit">
+        <div class="fh-credit-label">Written & Directed by</div>
+        <div class="fh-credit-val">Giovanni Doray</div>
+      </div>
+      <div class="fh-credit">
+        <div class="fh-credit-label">Starring</div>
+        <div class="fh-credit-val">Justin Tyler Kem, Jennifer Michele De Winters</div>
+      </div>
+    </div>
+    <div class="fh-actions">
+      <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener" class="btn btn-gold">View on IMDb ↗</a>
+      <a href="index.html#contact" class="btn btn-ghost">Request Screening →</a>
+    </div>
+  </div>
+  <div class="fh-right">
+    <div class="fh-poster">
+      <img src="gd-assets/ledges-poster.png" alt="Ledges — 2025 short film poster"/>
+    </div>
+  </div>
+  <div class="year-badge">
+    <div class="yb-num">2025</div>
+    <span class="yb-label">Released</span>
+  </div>
+</section>
+
+<!-- SYNOPSIS -->
+<section class="synopsis">
+  <div>
+    <p class="syn-label r">The Film</p>
+    <h2 class="syn-title r d1">Two people.<br><em>One conversation.</em></h2>
+    <div class="syn-body r d2">
+      <p>
+        <em>Ledges</em> is a short film about the kind of moment that changes everything — when two people find themselves on the edge of something they can't name, and have to decide whether to step back or lean in.
+      </p>
+      <p>
+        Shot on location in Los Angeles, the film is defined by its performances and the charged space between them. Giovanni Doray wrote, directed, and produced the film, casting Justin Tyler Kem and Jennifer Michele De Winters through Breakdown Express.
+      </p>
+    </div>
+    <blockquote class="syn-pull r d3">
+      "Some conversations only happen once. This is one of them."
+    </blockquote>
+  </div>
+
+  <div class="r d1">
+    <div class="credits-block">
+      <div class="credits-title">Full Credits</div>
+      <div class="credit-row">
+        <div class="cr-role">Written by</div>
+        <div><div class="cr-name">Giovanni Doray</div></div>
+      </div>
+      <div class="credit-row">
+        <div class="cr-role">Directed by</div>
+        <div><div class="cr-name">Giovanni Doray</div></div>
+      </div>
+      <div class="credit-row">
+        <div class="cr-role">Produced by</div>
+        <div><div class="cr-name">Giovanni Doray</div></div>
+      </div>
+      <div class="credit-row">
+        <div class="cr-role">Starring</div>
+        <div>
+          <div class="cr-name">Justin Tyler Kem</div>
+          <div class="cr-name" style="margin-top:6px">Jennifer Michele De Winters</div>
+        </div>
+      </div>
+      <div class="credit-row">
+        <div class="cr-role">Location</div>
+        <div><div class="cr-name">Los Angeles, CA</div></div>
+      </div>
+      <div class="credit-row">
+        <div class="cr-role">Year</div>
+        <div><div class="cr-name">2025</div></div>
+      </div>
+      <div class="credit-row">
+        <div class="cr-role">Status</div>
+        <div><div class="cr-name">Released</div><div class="cr-note">Available on IMDb</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <p class="gallery-label r">Stills</p>
+  <h2 class="gallery-title r d1">From the <em>Film</em></h2>
+  <div class="gallery-grid">
+    <div class="gitem gi1 r"><img src="gd-assets/ledges-1.png" alt="Ledges still — garden scene"/></div>
+    <div class="gitem gi2 r d1"><img src="gd-assets/ledges-2.png" alt="Ledges still — interior"/></div>
+    <div class="gitem gi3 r d2"><img src="gd-assets/ledges-3.png" alt="Ledges still — column scene"/></div>
+    <div class="gitem gi4 r"><img src="gd-assets/ledges-4.png" alt="Ledges still — fire truck"/></div>
+    <div class="gitem gi5 r d1"><img src="gd-assets/ledges-poster.png" alt="Ledges — official poster"/></div>
+  </div>
+</section>
+
+<!-- FILMMAKER NOTE -->
+<section class="note">
+  <div>
+    <p class="syn-label r">Director's Note</p>
+    <h2 class="note-aside-title r d1">From the <em>filmmaker</em></h2>
+  </div>
+  <div class="note-body r d2">
+    <p>
+      <em>Ledges</em> came from a question I kept returning to: what happens in the space just before a decision? Not the decision itself — but the moment you're standing on the edge of it, aware of everything you're about to change.
+    </p>
+    <p>
+      I wanted to make a film that lived entirely in that space. Two people, one location, one conversation that neither of them fully finishes. Justin and Jennifer brought something to this that I couldn't have written — a kind of honesty that only happens when actors are given room to breathe.
+    </p>
+    <p>
+      We shot it in Los Angeles. We had one day.
+    </p>
+  </div>
+</section>
+
+<!-- NEXT FILM -->
+<a href="once-in-palm-springs.html" class="next-film">
+  <div>
+    <p class="nf-label">Next Film</p>
+    <h2 class="nf-title"><em>Once, In Palm Springs</em></h2>
+  </div>
+  <div class="nf-arrow">→</div>
+</a>
+
+<footer>
+  <div class="f-logo">Giovanni <span>Doray</span></div>
+  <div class="f-copy">© 2025 Giovanni Doray — All rights reserved.</div>
+</footer>
+
+<script>
+  const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+  (function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}})},{threshold:0.1});
+  document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
