@@ -653,8 +653,66 @@
     }
     .witem:hover .warrow{color:var(--gold);transform:translateX(5px)}
 
+    /* ── NEWSLETTER ── */
+    .newsletter{
+      background:var(--bg);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+    .newsletter-inner{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:clamp(36px,6vw,100px);
+      align-items:center;
+    }
+    .nl-desc{
+      margin-top:16px;
+      font-family:var(--serif);
+      font-size:clamp(.95rem,1.1vw,1.1rem);
+      color:var(--warm2);line-height:1.8;
+      max-width:400px;
+    }
+    .nl-form{
+      display:flex;gap:0;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:2px;overflow:hidden;
+      transition:border-color .3s;
+    }
+    .nl-form:focus-within{border-color:var(--gold)}
+    .nl-input{
+      flex:1;
+      background:rgba(255,255,255,.03);
+      border:none;outline:none;
+      color:var(--warm);
+      font-family:var(--sans);
+      font-size:.9rem;font-weight:300;
+      padding:14px 18px;
+    }
+    .nl-input::placeholder{color:rgba(122,116,104,.4)}
+    .nl-btn{
+      display:inline-flex;align-items:center;
+      padding:14px 22px;
+      background:var(--gold);color:var(--bg);
+      font-family:var(--mono);
+      font-size:.62rem;letter-spacing:.12em;
+      text-transform:uppercase;white-space:nowrap;
+      border:none;cursor:none;
+      transition:background .3s;flex-shrink:0;
+    }
+    .nl-btn:hover{background:var(--gold2)}
+    .nl-sub{
+      margin-top:12px;
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--muted);
+    }
+    @media(max-width:900px){
+      .newsletter-inner{grid-template-columns:1fr}
+      .nl-form{flex-direction:column}
+      .nl-btn{text-align:center;justify-content:center}
+    }
+
     /* ─────────────────────────────────────────
-       CONTACT
     ───────────────────────────────────────── */
     .contact{
       background:var(--bg3);
@@ -850,6 +908,7 @@
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#films" onclick="closeMob()">Films</a>
   <a href="#writing" onclick="closeMob()">Writing</a>
+  <a href="#newsletter" onclick="closeMob()">Newsletter</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
   <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener">IMDb ↗</a>
 </div>
@@ -861,6 +920,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#films">Films</a></li>
     <li><a href="#writing">Writing</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener" class="nav-imdb">IMDb ↗</a></li>
   </ul>
@@ -1169,7 +1229,29 @@
   </div>
 </section>
 
-<!-- ── CONTACT ─────────────────────────────── -->
+<!-- ── NEWSLETTER ───────────────────────────── -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-inner">
+    <div class="nl-left r">
+      <p class="s-label">Stay Close</p>
+      <h2 class="s-title">The <em>Newsletter</em></h2>
+      <p class="nl-desc">
+        New films, essays, and dispatches from the work — sent when there's something worth saying. No noise.
+      </p>
+    </div>
+    <div class="nl-right r d2">
+      <div class="nl-form">
+        <input type="email" class="nl-input" placeholder="your@email.com" id="nlEmail"/>
+        <a href="https://giovannidoray.substack.com" target="_blank" rel="noopener" class="nl-btn" id="nlBtn">
+          Subscribe →
+        </a>
+      </div>
+      <p class="nl-sub">Published on Substack. No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+
 <section class="contact" id="contact">
   <div class="contact-left">
     <p class="s-label r">Get In Touch</p>
@@ -1269,6 +1351,16 @@
 </footer>
 
 <script>
+/* ── Newsletter ── */
+document.getElementById('nlBtn').addEventListener('click',function(e){
+  const email=document.getElementById('nlEmail').value.trim();
+  if(email && email.includes('@')){
+    window.open('https://giovannidoray.substack.com?email='+encodeURIComponent(email),'_blank');
+  } else {
+    window.open('https://giovannidoray.substack.com','_blank');
+  }
+});
+
 /* ── Cursor ── */
 const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
 let mx=0,my=0,rx=0,ry=0;
