@@ -653,7 +653,91 @@
     }
     .witem:hover .warrow{color:var(--gold);transform:translateX(5px)}
 
-    /* ── NEWSLETTER ── */
+    /* ── JOURNAL ── */
+    .journal{background:var(--bg2)}
+    .journal-hdr{
+      display:flex;justify-content:space-between;
+      align-items:flex-end;gap:24px;
+      margin-bottom:52px;
+    }
+    .journal-grid{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:2px;
+    }
+    .jcard{
+      grid-column:span 4;
+      background:var(--bg3);
+      padding:32px 28px;
+      display:flex;flex-direction:column;gap:14px;
+      border-bottom:2px solid transparent;
+      transition:border-color .3s,background .3s;
+      cursor:none;
+    }
+    .jcard.jcard-feat{
+      grid-column:span 8;
+      background:var(--surface, #181611);
+    }
+    .jcard:hover{
+      border-color:var(--gold);
+      background:var(--bg);
+    }
+    .jcard-top{
+      display:flex;justify-content:space-between;
+      align-items:center;
+    }
+    .jcard-outlet{
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--gold);
+    }
+    .jcard-date{
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--muted);
+    }
+    .jcard-title{
+      font-family:var(--serif);
+      font-size:clamp(1.1rem,1.5vw,1.4rem);
+      font-weight:400;color:var(--warm);
+      line-height:1.2;
+    }
+    .jcard-feat .jcard-title{
+      font-size:clamp(1.4rem,2vw,1.9rem);
+    }
+    .jcard-excerpt{
+      font-family:var(--serif);
+      font-size:clamp(.85rem,1vw,.98rem);
+      color:var(--muted);line-height:1.75;
+      font-weight:400;flex:1;
+    }
+    .jcard-footer{
+      display:flex;justify-content:space-between;
+      align-items:center;
+      padding-top:14px;
+      border-top:1px solid var(--line);
+      margin-top:auto;
+    }
+    .jcard-type{
+      font-family:var(--mono);
+      font-size:.55rem;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--muted);
+    }
+    .jcard-arrow{
+      color:var(--muted);font-size:.9rem;
+      transition:color .3s,transform .3s;
+    }
+    .jcard:hover .jcard-arrow{
+      color:var(--gold);transform:translateX(5px);
+    }
+    @media(max-width:1100px){
+      .jcard{grid-column:span 6}
+      .jcard.jcard-feat{grid-column:span 12}
+    }
+    @media(max-width:700px){
+      .jcard,.jcard.jcard-feat{grid-column:span 12}
+      .journal-hdr{flex-direction:column;align-items:flex-start}
+    }
     .newsletter{
       background:var(--bg);
       border-top:1px solid var(--line);
@@ -907,7 +991,7 @@
 <div class="mmenu" id="mmenu">
   <a href="#about" onclick="closeMob()">About</a>
   <a href="#films" onclick="closeMob()">Films</a>
-  <a href="#writing" onclick="closeMob()">Writing</a>
+  <a href="#writing" onclick="closeMob()">Journal</a>
   <a href="#newsletter" onclick="closeMob()">Newsletter</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
   <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener">IMDb ↗</a>
@@ -919,7 +1003,7 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#films">Films</a></li>
-    <li><a href="#writing">Writing</a></li>
+    <li><a href="#writing">Journal</a></li>
     <li><a href="#newsletter">Newsletter</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener" class="nav-imdb">IMDb ↗</a></li>
@@ -1151,12 +1235,12 @@
   </div>
 </div>
 
-<!-- ── WRITING ─────────────────────────────── -->
-<section class="writing" id="writing">
-  <div class="writing-hdr">
+<!-- ── JOURNAL ───────────────────────────── -->
+<section class="journal" id="writing">
+  <div class="journal-hdr">
     <div>
-      <p class="s-label r">On The Page</p>
-      <h2 class="s-title r d1">Writing &amp; <em>Essays</em></h2>
+      <p class="s-label r">Journal</p>
+      <h2 class="s-title r d1">Words &amp; <em>Writing</em></h2>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;" class="r d2">
       <a href="https://www.straight.com/users/giovanni-doray" target="_blank" rel="noopener" class="btn btn-ghost">Georgia Straight ↗</a>
@@ -1164,67 +1248,80 @@
     </div>
   </div>
 
-  <div class="wlist">
+  <div class="journal-grid">
+
+    <!-- ── PUBLISHED PIECES ── -->
+
+    <a href="https://medium.com/@giovannidoray/art-is-a-bruise-you-keep-pressing-on-9747faebd560"
+       target="_blank" rel="noopener" class="jcard jcard-feat r">
+      <div class="jcard-top">
+        <span class="jcard-outlet">Medium</span>
+        <span class="jcard-date">Feb 2025</span>
+      </div>
+      <h3 class="jcard-title">Art Is a Bruise You Keep Pressing On</h3>
+      <p class="jcard-excerpt">On what it costs to make something — and why you keep doing it anyway. A personal essay on creativity, discipline, and the strange compulsion to create.</p>
+      <div class="jcard-footer">
+        <span class="jcard-type">Personal Essay</span>
+        <span class="jcard-arrow">→</span>
+      </div>
+    </a>
 
     <a href="https://www.straight.com/music/photos-sum-41s-farewell-tour-brought-nostalgia-to-rogers-arena"
-       target="_blank" rel="noopener" class="witem r">
-      <div class="wnum">01</div>
-      <div class="winfo">
-        <h3 class="wtitle">Sum 41's Farewell Tour Brought Nostalgia to Rogers Arena</h3>
-        <p class="wmeta">Concert Review · The Georgia Straight · Vancouver</p>
+       target="_blank" rel="noopener" class="jcard r d1">
+      <div class="jcard-top">
+        <span class="jcard-outlet">Georgia Straight</span>
+        <span class="jcard-date">2024</span>
       </div>
-      <span class="warrow">→</span>
+      <h3 class="jcard-title">Sum 41's Farewell Tour Brought Nostalgia to Rogers Arena</h3>
+      <p class="jcard-excerpt">A night of punk-pop nostalgia as one of Canada's defining bands said goodbye to Vancouver.</p>
+      <div class="jcard-footer">
+        <span class="jcard-type">Concert Review</span>
+        <span class="jcard-arrow">→</span>
+      </div>
     </a>
 
     <a href="https://www.straight.com/music/photos-omar-apollo-brought-spirited-energy-to-ubc"
-       target="_blank" rel="noopener" class="witem r d1">
-      <div class="wnum">02</div>
-      <div class="winfo">
-        <h3 class="wtitle">Omar Apollo Brought Spirited Energy to UBC</h3>
-        <p class="wmeta">Concert Review · The Georgia Straight · Vancouver</p>
+       target="_blank" rel="noopener" class="jcard r d2">
+      <div class="jcard-top">
+        <span class="jcard-outlet">Georgia Straight</span>
+        <span class="jcard-date">2024</span>
       </div>
-      <span class="warrow">→</span>
+      <h3 class="jcard-title">Omar Apollo Brought Spirited Energy to UBC</h3>
+      <p class="jcard-excerpt">The LA singer brought warmth, precision, and an undeniable stage presence to a packed crowd at UBC.</p>
+      <div class="jcard-footer">
+        <span class="jcard-type">Concert Review</span>
+        <span class="jcard-arrow">→</span>
+      </div>
     </a>
 
     <a href="https://www.straight.com/music/hana-vus-romanticism-soothes-wise-hall"
-       target="_blank" rel="noopener" class="witem r d2">
-      <div class="wnum">03</div>
-      <div class="winfo">
-        <h3 class="wtitle">Hana Vu's Romanticism Soothes the WISE Hall</h3>
-        <p class="wmeta">Concert Review · The Georgia Straight · Vancouver</p>
+       target="_blank" rel="noopener" class="jcard r d3">
+      <div class="jcard-top">
+        <span class="jcard-outlet">Georgia Straight</span>
+        <span class="jcard-date">2024</span>
       </div>
-      <span class="warrow">→</span>
+      <h3 class="jcard-title">Hana Vu's Romanticism Soothes the WISE Hall</h3>
+      <p class="jcard-excerpt">Quiet, precise, and deeply felt — Hana Vu turned a small Vancouver venue into something intimate and lasting.</p>
+      <div class="jcard-footer">
+        <span class="jcard-type">Concert Review</span>
+        <span class="jcard-arrow">→</span>
+      </div>
     </a>
 
-    <a href="https://medium.com/@giovannidoray/art-is-a-bruise-you-keep-pressing-on-9747faebd560"
-       target="_blank" rel="noopener" class="witem r d3">
-      <div class="wnum">04</div>
-      <div class="winfo">
-        <h3 class="wtitle">Art Is a Bruise You Keep Pressing On</h3>
-        <p class="wmeta">Personal Essay · Medium · February 2025</p>
+    <!-- ── TEMPLATE: copy this block to add new entries ──
+    <a href="YOUR-LINK-HERE" target="_blank" rel="noopener" class="jcard r">
+      <div class="jcard-top">
+        <span class="jcard-outlet">Personal</span>
+        <span class="jcard-date">Month Year</span>
       </div>
-      <span class="warrow">→</span>
-    </a>
-
-    <a href="https://www.imdb.com/name/nm14467263/" target="_blank" rel="noopener"
-       class="witem r d4">
-      <div class="wnum">05</div>
-      <div class="winfo">
-        <h3 class="wtitle">Once, In Palm Springs — Novel & Screenplay</h3>
-        <p class="wmeta">Written as novel, adapted to screen · Los Angeles</p>
+      <h3 class="jcard-title">Your Title Here</h3>
+      <p class="jcard-excerpt">A short description of the piece — 1 or 2 sentences.</p>
+      <div class="jcard-footer">
+        <span class="jcard-type">Essay / Review / Journal</span>
+        <span class="jcard-arrow">→</span>
       </div>
-      <span class="warrow">→</span>
     </a>
-
-    <a href="https://www.straight.com/users/giovanni-doray" target="_blank" rel="noopener"
-       class="witem r d4">
-      <div class="wnum">06</div>
-      <div class="winfo">
-        <h3 class="wtitle">All Publications</h3>
-        <p class="wmeta">The Georgia Straight · Vancouver</p>
-      </div>
-      <span class="warrow">→</span>
-    </a>
+    ── END TEMPLATE ── -->
 
   </div>
 </section>
